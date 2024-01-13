@@ -12,11 +12,11 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     if @book.save
-     redirect_to book_show_path(@book.id), notice: "Book created successfully."
+      redirect_to book_show_path(@book.id), notice: "Book created successfully."
     else
-    flash[:alert] = "errors prohibited this book from being saved:"
-    @books = Book.all
-    render :index
+      flash[:alert] = "errors prohibited this book from being saved:"
+      @books = Book.all
+      render :index
     end
   end
   
@@ -43,6 +43,6 @@ class BooksController < ApplicationController
   private
  
   def book_params
-    params.permit(:title, :body)
+    params.require(:book).permit(:title, :body)
   end
 end
